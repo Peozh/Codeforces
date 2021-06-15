@@ -3,7 +3,7 @@
 typedef long long ll;
 
 using namespace std;
-pair<ll, ll> unexpectedBranch(const int unexpected, const int st, const int pivot, const int en, const string& str) {
+pair<ll, ll> unexpSearch(const int unexpected, const int st, const int pivot, const int en, const string& str) {
     pair<ll, ll> rangeLR;
     ll lenL = 0;
     int unexp = unexpected;
@@ -31,17 +31,17 @@ pair<ll, ll> unexpectedBranch(const int unexpected, const int st, const int pivo
 }
 ll includedSearch(const int st, const int pivot, const int en, const string& str) {
     ll count0 = 0;
-    pair<ll, ll> rangeLR0;
+    pair<ll, ll> rangeLR0 = {0, 0};
     if (str[pivot] != '1') {
         int unexpected = 1;
-        rangeLR0 = unexpectedBranch(unexpected, st, pivot, en, str);
+        rangeLR0 = unexpSearch(unexpected, st, pivot, en, str);
         count0 = rangeLR0.first * rangeLR0.second;
     }
     ll count1 = 0;
-    pair<ll, ll> rangeLR1;
+    pair<ll, ll> rangeLR1 = {0, 0};
     if (str[pivot] != '0') {
         int unexpected = 0;
-        rangeLR1 = unexpectedBranch(unexpected, st, pivot, en, str);
+        rangeLR1 = unexpSearch(unexpected, st, pivot, en, str);
         count1 = rangeLR1.first * rangeLR1.second;
     }
     return count0 + count1 - min(rangeLR0.first, rangeLR1.first) * min(rangeLR0.second, rangeLR1.second);
